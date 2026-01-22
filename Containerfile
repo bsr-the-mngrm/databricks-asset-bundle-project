@@ -4,12 +4,17 @@ FROM python:3.13-slim
 # System deps + Homebrew + Databricks CLI in one layer
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      curl git gcc libffi-dev libpq-dev build-essential python3-dev python3-pip && \
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /etc/profile && \
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-    brew install databricks && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    curl git gcc libffi-dev libpq-dev build-essential python3-dev python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Homebrew (non-interactive) and Databricks CLI via brew
+RUN apt-get update && apt-get install -y curl git build-essential \
+    && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+    && echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /etc/profile \
+    && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" \
+    && brew tap databricks/tap \
+    && brew install databricks \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Ensure brew is on PATH for subsequent steps
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
