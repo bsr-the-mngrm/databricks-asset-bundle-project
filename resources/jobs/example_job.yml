@@ -1,0 +1,11 @@
+# This is an example job definition.
+# Copy and adapt this file for real workloads.
+
+resources:
+  jobs:
+    example_job:
+      name: example-job-name
+      tasks:
+        - task_key: example_task
+          notebook_task:
+            notebook_path: ../notebooks/example_pipeline.py
