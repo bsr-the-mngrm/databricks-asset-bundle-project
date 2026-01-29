@@ -1,5 +1,5 @@
 # Containerfile
-FROM python:3.13-slim
+FROM python:3.12.3-slim
 
 # System deps + Homebrew + Databricks CLI in one layer
 RUN apt-get update && \

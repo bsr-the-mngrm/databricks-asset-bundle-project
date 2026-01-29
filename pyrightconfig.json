@@ -5,7 +5,7 @@
   ],
   "extraPaths": [
     "src",
-    "/usr/local/lib/python3.13/site-packages"
+    "/usr/local/lib/python3.12/site-packages"
   ],
   "exclude": [
     "resources/notebooks/*.py"
@@ -14,7 +14,7 @@
     "resources/notebooks/*.py"
   ],
   "typeCheckingMode": "strict",
-  "pythonVersion": "3.13",
+  "pythonVersion": "3.12",
   "reportMissingImports": true,
   "reportMissingTypeStubs": false
 }
