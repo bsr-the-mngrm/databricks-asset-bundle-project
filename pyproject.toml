@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "python-podman-template"
+name = "dab-podman-template"
 version = "0.1.0"
-description = "Minimal Podman-based Python template"
+description = "Minimal Podman-based Databricks Asset Bundle template"
 authors = ["bsr-the-mngrm <me@sandorbakos.com>"]
 readme = "README.md"
-packages = [{ include = "src" }]
+packages = [{ include = "my_project", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.13"
@@ -17,6 +17,10 @@ pytest-cov = "^6.2.1"
 bandit = "^1.8.6"
 pyright = "^1.1.403"
 pre-commit = "^4.2.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["poetry-core"]
