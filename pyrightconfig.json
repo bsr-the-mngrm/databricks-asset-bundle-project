@@ -7,6 +7,12 @@
     "src",
     "/usr/local/lib/python3.13/site-packages"
   ],
+  "exclude": [
+    "resources/notebooks/*.py"
+  ],
+  "ignore": [
+    "resources/notebooks/*.py"
+  ],
   "typeCheckingMode": "strict",
   "pythonVersion": "3.13",
   "reportMissingImports": true,
