@@ -10,7 +10,8 @@
         "ms-python.python", // Official Python support
         "ms-python.vscode-pylance", // Official type checker (IntelliSense + Pyright)
         "charliermarsh.ruff", // Super-fast linter and formatter
-        "redhat.vscode-yaml" // YAML validation (great for CI, workflows, devcontainers)
+        "redhat.vscode-yaml", // YAML validation (great for CI, workflows, devcontainers)
+        ""databricks.databricks" // Databricks extension for Visual Studio Code 
       ]
     }
   },
