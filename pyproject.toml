@@ -23,6 +23,8 @@ pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.ruff]
+line-length = 88
+select = ["E", "F", "I"]
 extend-exclude = ["resources/notebooks/*.py"]
 
 [build-system]
