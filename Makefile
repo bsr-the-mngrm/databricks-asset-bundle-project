@@ -38,6 +38,7 @@ check: ## Run all quality checks (lint, format, type-check, test)
 	black --check .
 	pyright
 	pytest
+	databricks bundle validate
 
 ci: check ## Alias for CI pipelines (same as check)
 
