@@ -1,71 +1,141 @@
-# python-podman-template
-📦 Python project template with Podman support — easily containerize and run your Python apps using a minimal, ready-to-use Podman setup.
+# databricks-asset-bundle-project (template)
+
+📦 **Template repository for Databricks-oriented Python projects**  
+Notebook-first, package-ready, and designed for easy promotion to Databricks Asset Bundles — with a local Podman-based development environment.
+
+---
+
+## 🎯 Purpose
+
+This repository is a **template**, not a finished project.
+
+It provides:
+- a Databricks-aligned project structure
+- clear separation between notebooks and Python modules
+- examples and placeholders instead of concrete settings
+- a local Podman + VS Code Dev Container setup
+- basic tooling for formatting, linting, and testing
+
+It intentionally does **not** include:
+- Databricks workspace credentials or URLs
+- real job, cluster, or environment configurations
+
+The goal is to teach **structure and workflow**, not enforce decisions.
+
+---
+
+## 🧠 Design principles
+
+- **Notebooks orchestrate, modules implement**  
+  Notebooks are thin and descriptive; all reusable logic lives under `src/`.
+
+- **Notebook-first, production-aware**  
+  You can work in notebooks locally, but code is written to be easily promoted into jobs.
+
+- **Drivers, not configs**  
+  Files show *where* things go and *how* they connect — not real values.
+
+---
+
+## 📁 Repository structure (high level)
+
+```text
+.
+├─ src/                 # Python package (reusable, testable logic)
+├─ resources/           # Databricks bundle assets (examples only)
+│  ├─ notebooks/        # Thin notebooks (orchestration)
+│  └─ jobs/             # Example job definitions (placeholders)
+├─ tests/               # Unit tests
+├─ docs/                # How-to guides (promotion paths, conventions)
+├─ .devcontainer/       # Podman-based devcontainer setup
+├─ databricks.yml       # Bundle skeleton (no concrete targets)
+└─ pyproject.toml
+```
 
 ## ✅ Prerequisites
-Before you begin, make sure the following tools are installed and properly configured on your system:
-- Operating System: Windows 10 or 11 (with WSL2 enabled)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Podman](https://podman.io/)
-- [Podman Desktop](https://podman.io/podman-desktop)
-- [Remote - Containers extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-⚠️ This template assumes you are using Podman as a Docker replacement under WSL2 and running VS Code on Windows.
+- Windows 10/11 with WSL2
+- Visual Studio Code
+- Podman + Podman Desktop
+- VS Code Remote – Containers extension
 
-## 🚀 Getting Started with Podman in VS Code
-To run this project in a Podman container using Visual Studio Code, follow these initial setup steps:
+⚠️ This template assumes Podman is used as a Docker replacement under WSL2.
 
-1. **Open User Settings (JSON)**
-    1. Open **Visual Studio Code**.
-    1. Press `Ctrl + Shift + P` to open the Command Palette.
-    1. Search for "**Preferences: Open User Settings (JSON)**" and select it.
+## 🚀 Getting started (Podman + VS Code)
+### 1️⃣ Configure VS Code to use Podman
 
-1. **Add the following settings**
-    - Insert the following key-value pairs into your `settings.json` file:
-    - This tells VS Code to use Podman instead of Docker when working with Dev Containers 
-    - And disable GUI-related socket mounting in Dev Containers (not to attempt to mount the wayland-0 socket, which avoids the UNC mount error).
-    ```json
-    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
-    "dev.containers.dockerPath": "podman",
-    "dev.containers.mountWaylandSocket": false,
-    ``` 
-
-1. **Copy Template Files**
-
-    To set up your development environment, copy the provided template files to their active locations:
-    ```bash
-    cp .devcontainer/devcontainer.json.template .devcontainer/devcontainer.json
-    cp .vscode/settings.json.template .vscode/settings.json
-    ```
-    💡 These files define your development container and workspace settings. You can modify them to suit your project needs.
-
-1. **Launch Dev Container**
-    
-    Run: `Ctrl + Shift + P` → "**Dev Containers: Reopen in Container**"
-
-    VS Code will:
-    - Build your container using `Containerfile`
-    - Mount your code inside `/home/dev/app`
-    - Install extensions and run poetry install
-    - Open VS Code inside the container as the `dev` user
-
-1. **Awesome**, you're ready to build the next thing! 🎉🎉🎉
-
-## 🔧 Local Development Workflow
-
-The diagram below illustrates how this template works during local development with Podman:
+Open User Settings (JSON) and add:
+```json
+"containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+"dev.containers.dockerPath": "podman",
+"dev.containers.mountWaylandSocket": false
 ```
-+-------------------+        triggers build          +---------------------+
-|      VS Code      | ---------------------------->  | Python Container    |
-|  (devcontainer)   |                                | Image (Podman)      |
-+-------------------+                                +---------------------+
+
+### 2️⃣ Activate template files
+```bash
+cp .devcontainer/devcontainer.json.template .devcontainer/devcontainer.json
+cp .vscode/settings.json.template .vscode/settings.json
+```
+
+These files define the dev container and workspace defaults.
+
+### 3️⃣ Start the Dev Container
+`Ctrl + Shift + P` → Dev Containers: Reopen in Container
+
+VS Code will:
+
+- build the container using Containerfile
+- mount the project into the container
+- install dependencies via Poetry
+- open the workspace as the dev user
+
+## 🔧 Local development workflow
+Conceptual flow
+```text
+TBD.
+        ↓
+TBD.
+        ↓
+TBD.
+```
+
+Runtime view
+```text
++-------------------+        builds / runs         +---------------------+
+|      VS Code      | -------------------------->  | Python Container    |
+|  (Dev Container)  |                              | (Podman)            |
++-------------------+                              +---------------------+
         |                                                        |
-        |    podman run (auto)                                   |
-        |  + source mount / port                                 |
+        | source mounted into container                          |
         v                                                        v
 +-------------------+                                 +-------------------+
-| VS Code Terminal  | <------- localhost:PORT --------| Running Container |
-| or UI Extensions  |                                 | (Python app)      |
+| VS Code Terminal  | <--------- localhost ---------- | Running code      |
+| & Extensions      |                                 | (tests, notebooks)|
 +-------------------+                                 +-------------------+
-
-
 ```
+
+The same codebase can later be executed:
+- as Databricks notebooks
+- or as Databricks Jobs via Asset Bundles
+
+## 🧪 Quality & tooling
+This template encourages near-production quality without heavy process:
+- formatting: black
+- linting: ruff
+- testing: pytest
+- optional: pre-commit
+
+Focus is on clarity, correctness, and easy promotion to production.
+
+## 🔄 Using this template
+1. Click Use this template on GitHub
+1. Rename the Python package under src/
+1. Replace example notebooks and job files
+1. Add real Databricks settings to databricks.yml
+1. Deploy using Databricks Asset Bundles
+
+## 📌 Final note
+
+> Move fast locally, stay disciplined structurally.
+
+This template is meant to support experimentation, public GitHub work, and real Databricks projects — without rewriting everything later.
